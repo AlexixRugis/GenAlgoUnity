@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 
 public class AgentNetwork : INeuralLayer
 {
     public DataVector InputData { get; private set; }
     public DataVector OutputData { get; private set; }
+    public Genome Genome { get; private set; }
 
     private List<INeuralLayer> _layers = new List<INeuralLayer>();
 
@@ -16,11 +16,6 @@ public class AgentNetwork : INeuralLayer
     private void BuildNetwork()
     {
         LinearLayer l1 = new LinearLayer(19, 2);
-        Random r = new Random();
-        for (int i = 0; i < l1.Weights.Length; i++) 
-        {
-            l1.Weights[i] = (float)r.NextDouble();
-        }
 
         SigmoidLayer sigmoid1 = new SigmoidLayer();
         sigmoid1.SetInput(l1.OutputData);
@@ -28,6 +23,10 @@ public class AgentNetwork : INeuralLayer
         _layers.Add(l1);
         _layers.Add(sigmoid1);
 
+        Genome = new Genome
+        {
+            l1.Weights
+        };
         OutputData = sigmoid1.OutputData;
     }
 

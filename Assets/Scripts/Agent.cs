@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Agent : MonoBehaviour
@@ -8,20 +8,23 @@ public class Agent : MonoBehaviour
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private DistanceSensor _distanceSensor;
 
+    public float Bonus { get; private set; }
     public float CurrentEnergy { get; set; }
+    public Genome Genome => _network.Genome;
 
     private AgentNetwork _network;
     private DataVector _input;
     private DataVector _output;
 
-    private void Start()
+
+    private void Awake()
     {
         _network = new AgentNetwork();
         _input = new DataVector(19);
         _input.Data[17] = 1f;
         _network.SetInput(_input);
         _output = _network.OutputData;
-
+        Bonus = 0f;
         CurrentEnergy = _maxEnergy;
     }
 
@@ -29,10 +32,11 @@ public class Agent : MonoBehaviour
     {
         if (CurrentEnergy <= 0f)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
             return;
         }
 
+        Bonus += Time.deltaTime;
         CurrentEnergy -= Time.deltaTime;
 
         _distanceSensor.Evaluate();
@@ -44,7 +48,7 @@ public class Agent : MonoBehaviour
 
         _network.Evaluate();
         float rotateInput = 2f * _output.Data[0] - 1f;
-        float forwardInput = 2f * _output.Data[1] - 1f;
+        float forwardInput = _output.Data[1];
 
         Debug.Log(string.Join(' ', _output.Data));
 
@@ -55,6 +59,7 @@ public class Agent : MonoBehaviour
     public void AddEnergy(float delta)
     {
         CurrentEnergy += delta;
+        Bonus += delta;
         CurrentEnergy = Mathf.Max(CurrentEnergy, _maxEnergy);
     }
 }
