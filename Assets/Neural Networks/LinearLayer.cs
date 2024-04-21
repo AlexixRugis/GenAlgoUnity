@@ -29,7 +29,7 @@ public class LinearLayer : INeuralLayer
             outData[i] = 0;
             for (int j = 0; j < inData.Length; j++)
             {
-                outData[i * outData.Length + j] = 0;
+                outData[i] += Weights[i * inData.Length + j] * inData[j];
             }
         }
     }
