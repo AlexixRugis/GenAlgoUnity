@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d4b2ec55525a44aa86733c904efea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxEnergy: 30
+  _maxEnergy: 15
   _characterController: {fileID: 6417531252694410436}
   _distanceSensor: {fileID: 6417531253140678924}
 --- !u!143 &6417531252694410436

@@ -265,12 +265,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6417531252694410439, guid: c3c57002cbd11b34ab08f523f02979fd, type: 3}
-  _agentCount: 10
+  _agentCount: 15
   _extentsX: 20
   _extentsZ: 20
   _epochTime: 60
-  _mutationProbability: 0.2
-  _mutationDelta: 0.2
+  _mutationProbability: 0.25
+  _mutationDelta: 0.4
 --- !u!1 &540745840
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6729887519902412795, guid: 1318bc1e6a729934793c613ba38b772b, type: 3}
   _timeDelta: 5
-  _maxCount: 15
+  _maxCount: 6
   _extentsX: 20
   _extentsZ: 20
 --- !u!1 &963194225

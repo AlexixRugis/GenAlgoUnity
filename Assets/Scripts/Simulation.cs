@@ -51,17 +51,16 @@ public class Simulation : MonoBehaviour
 
     private void UpdateBests()
     {
-        SortedDictionary<float, Genome> genomes = new SortedDictionary<float, Genome>();
+        List<KeyValuePair<float, Genome>> sortedGenomes = new List<KeyValuePair<float, Genome>>(_spawned.Length);
         for (int i = 0; i < _spawned.Length; i++)
         {
-            genomes[_spawned[i].Bonus] = _spawned[i].Genome;
+            sortedGenomes.Add(new KeyValuePair<float, Genome>(_spawned[i].Bonus, _spawned[i].Genome));
         }
 
-        List<Genome> sortedGenomes = new List<Genome>();
-        foreach (var g in genomes) sortedGenomes.Add(g.Value);
+        sortedGenomes.Sort((x, y) => x.Key.CompareTo(y.Key));
 
-        _best1 = sortedGenomes[sortedGenomes.Count - 1];
-        _best2 = sortedGenomes[sortedGenomes.Count - 2];
+        _best1 = sortedGenomes[sortedGenomes.Count - 1].Value;
+        _best2 = sortedGenomes[sortedGenomes.Count - 2].Value;
     }
 
     private void SpawnNewAgents()
